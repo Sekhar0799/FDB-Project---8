@@ -1,0 +1,37 @@
+{% extends 'app/base.html' %} {% block content %}
+<div class="container mt-5">
+  <h1>Your Shopping Cart</h1>
+
+  {% if items %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td>{{ item.product.product_name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>${{ item.product.price }}</td>
+        <td>${{ item.quantity * item.product.price }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <p class="font-weight-bold">Total Price: ${{ total_price }}</p>
+
+  <form method="post" action="">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Proceed to Checkout</button>
+  </form>
+  {% else %}
+  <p>Your cart is empty.</p>
+  {% endif %}
+</div>
+{% endblock content %}
